@@ -14,6 +14,15 @@ interface GraphQLResponse {
           issues: {
             totalCount: number
           }
+          languages: {
+            edges: Array<{
+              size: number
+              node: {
+                name: string
+                color: string
+              }
+            }>
+          }
         }>
       }
       followers: {
@@ -137,6 +146,15 @@ async function getGithubDataGraphQL(username: string, token: string) {
             issues(states: [OPEN, CLOSED]) {
               totalCount
             }
+            languages(first: 10) {
+              edges {
+                size
+                node {
+                  name
+                  color
+                }
+              }
+            }
           }
         }
         followers {
@@ -199,11 +217,25 @@ export async function getGithubStats(username: string) {
       let stars = 0
       let forks = 0
       let issues = 0
+      const languageStats: Record<string, { name: string; color: string; size: number }> = {}
 
       user.repositories.nodes.forEach(repo => {
         stars += repo.stargazerCount || 0
         forks += repo.forkCount || 0
         issues += repo.issues.totalCount || 0
+        if (repo.languages && repo.languages.edges) {
+          repo.languages.edges.forEach(lang => {
+            const langName = lang.node.name
+            if (!languageStats[langName]) {
+              languageStats[langName] = {
+                name: langName,
+                color: lang.node.color,
+                size: 0,
+              }
+            }
+            languageStats[langName].size += lang.size || 0
+          })
+        }
       })
 
       const stats = {
@@ -221,6 +253,7 @@ export async function getGithubStats(username: string) {
         commits: user.contributionsCollection.totalCommitContributions,
         closedPRs: user.pullRequests.totalCount,
         reviews: user.contributionsCollection.totalPullRequestReviewContributions,
+        languages: Object.values(languageStats),
       }
 
       const rating = calculateRating(stats)

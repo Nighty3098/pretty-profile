@@ -23,12 +23,12 @@
 https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall
 ```
 
-### Night:
+### Ancient
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=night)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=ancient)
 
 ```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=night
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=ancient
 ```
 
 ### Forest:
@@ -57,7 +57,7 @@ https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac
 
 ### Custom
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=custom&fg=%23000000&bg=%236a55e8)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=custom&fg=%23000000&bg=%23caa7ca)
 
 ```
 https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=custom&fg=%23000000&bg=%236a55e8
@@ -114,12 +114,21 @@ GET /api/github-stats
 - `about_me` (optional) — any string to be displayed on the banner (e.g. a short bio or status)
 - `fg` (optional) — foreground (text) color for custom theme (e.g. "#ffffff")
 - `bg` (optional) — background color for custom theme (e.g. "#000000")
+- `hide_avatar` (optional) — set to `true` to hide the avatar and expand the stats block (default: `false`)
 
 ### Example Request
 
 ```
 GET /api/github-stats?username=octocat&theme=city&show=stars,commits,followers&about_me=Open%20Source%20Enthusiast
 ```
+
+### Hide Avatar Example
+
+```
+GET /api/github-stats?username=octocat&hide_avatar=true
+```
+
+**Response:** SVG banner without the avatar, stats block width is increased.
 
 ### Custom Theme Example
 
