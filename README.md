@@ -17,10 +17,16 @@
 
 ### Waterfall:
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall)
+![](http://localhost:3000/api/github-stats?username=Nighty3098&theme=waterfall)
 
 ```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall&hide_avatar=true
+```
+
+![](http://localhost:3000/api/github-stats?username=Nighty3098&theme=waterfall&langs=true)
+
+```
+http://localhost:3000/api/github-stats?username=Nighty3098&theme=waterfall&langs=true
 ```
 
 ### Ancient
@@ -31,6 +37,12 @@ https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=wat
 https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=ancient
 ```
 
+![](http://localhost:3000/api/github-stats?username=Nighty3098&theme=ancient&langs=true)
+
+```
+http://localhost:3000/api/github-stats?username=Nighty3098&theme=ancient&langs=true
+```
+
 ### Forest:
 
 ![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest)
@@ -39,20 +51,11 @@ https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=anc
 https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest
 ```
 
-### Mac OS BigSur
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur)
-
-```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur
-```
-
-### Mac OS BigSur Dark
-
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur_dark)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest&langs=true)
 
 ```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur_dark
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest&langs=true
 ```
 
 ### Custom
@@ -115,12 +118,21 @@ GET /api/github-stats
 - `fg` (optional) — foreground (text) color for custom theme (e.g. "#ffffff")
 - `bg` (optional) — background color for custom theme (e.g. "#000000")
 - `hide_avatar` (optional) — set to `true` to hide the avatar and expand the stats block (default: `false`)
+- `langs` (optional) — set to `true` to show a language usage chart instead of GitHub stats
 
 ### Example Request
 
 ```
 GET /api/github-stats?username=octocat&theme=city&show=stars,commits,followers&about_me=Open%20Source%20Enthusiast
 ```
+
+### Languages Chart Example
+
+```
+GET /api/github-stats?username=octocat&langs=true
+```
+
+**Response:** SVG banner with a chart of the top 6 programming languages used by the user (with progress bars and percentages).
 
 ### Hide Avatar Example
 
