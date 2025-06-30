@@ -12,7 +12,6 @@ interface RenderParams {
   about_me: string
 }
 
-// Загружаем шрифт Oswald один раз при старте
 const fontPath = path.resolve(process.cwd(), "public/fonts/IosevkaNerdFont-Bold.ttf")
 const fontExists = fs.existsSync(fontPath)
 console.log("[satori] Font exists:", fontExists, fontPath)
@@ -69,7 +68,6 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
     fieldsToShow = defaultFields
   }
 
-  // Абсолютный путь к картинке
   const bgUrl = theme.backgroundImage ? origin + theme.backgroundImage : undefined
 
   try {
@@ -107,7 +105,6 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
             }}
           />
         )}
-        {/* Основной контент: статистика + аватар */}
         <div
           style={{
             display: "flex",
@@ -117,7 +114,6 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
             width: "100%",
             zIndex: 2,
           }}>
-          {/* Статистика слева */}
           <div
             style={{
               display: "flex",
@@ -157,7 +153,6 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
               )}
             </div>
           </div>
-          {/* Аватар справа */}
           <div
             style={{
               display: "flex",
@@ -178,7 +173,6 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
             />
           </div>
         </div>
-        {/* about_me снизу */}
         {about_me && (
           <h1
             style={{
