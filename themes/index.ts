@@ -76,6 +76,13 @@ const themes: Record<string, Theme> = {
     color: "#000",
     accent: "#696969",
   },
+  simple: {
+    name: "simple",
+    background: "#fff",
+    backgroundImage: "/images/simple.png",
+    color: "#3e3e3e",
+    accent: "#6c6c6c",
+  },
 }
 
 export function createCustomTheme(fg: string, bg: string): Theme {
