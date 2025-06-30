@@ -52,10 +52,10 @@ https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=whi
 ```
 
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest&langs=true)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=white&langs=true)
 
 ```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest&langs=true
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=white&langs=true
 ```
 
 ### Custom
