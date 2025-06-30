@@ -44,7 +44,6 @@ function getAllGithubTokens(): string[] {
     .filter(Boolean)
 }
 
-// Веса и медианы для метрик
 const METRICS = {
   commits: { weight: 2, median: 100 },
   prs: { weight: 3, median: 10 },
@@ -54,21 +53,18 @@ const METRICS = {
   followers: { weight: 2, median: 100 },
 }
 
-// Экспоненциальная функция нормализации для commits, prs, issues, reviews
 const calcExponentialCDF = (value: number, median: number): number => {
   if (value <= 0) return 0
 
   return 1 - Math.exp(-value / median)
 }
 
-// Логарифмическая функция нормализации для stars, followers
 const calcLogNormalCDF = (value: number, median: number): number => {
   if (value <= 0) return 0
 
   return Math.log(1 + value / median) / Math.log(1 + 1000 / median)
 }
 
-// Расчет общего скора
 const calculateTotalScore = (metrics: any): number => {
   const scores = {
     commits: calcExponentialCDF(metrics.commits, METRICS.commits.median),
@@ -85,7 +81,6 @@ const calculateTotalScore = (metrics: any): number => {
   return (totalScore / totalWeight) * 100
 }
 
-// Определение уровня по процентилю
 const getLevelByPercentile = (percentile: number): { level: string; name: string } => {
   if (percentile <= 1) return { level: "S", name: "Legendary" }
   if (percentile <= 12.5) return { level: "A+", name: "Master" }
@@ -113,13 +108,11 @@ const calculateRating = (stats: any) => {
 
   const score = calculateTotalScore(metrics)
 
-  // Процентиль рассчитывается на основе скора (упрощенная версия)
-  // В реальной системе здесь должна быть база данных всех пользователей
   const percentile = Math.max(0, Math.min(100, 100 - score))
 
   const levelInfo = getLevelByPercentile(percentile)
 
-  console.log("[rating] Score:", score, "Percentile:", percentile, "Level:", levelInfo.level)
+  console.log("[rating] Score:", score, percentile, "Level:", levelInfo.level)
 
   return {
     score: Math.floor(score),
@@ -203,7 +196,6 @@ export async function getGithubStats(username: string) {
         throw new Error("User not found")
       }
 
-      // Подсчитываем статистику по репозиториям
       let stars = 0
       let forks = 0
       let issues = 0
@@ -231,7 +223,6 @@ export async function getGithubStats(username: string) {
         reviews: user.contributionsCollection.totalPullRequestReviewContributions,
       }
 
-      // Вычисляем рейтинг
       const rating = calculateRating(stats)
 
       return {
@@ -249,12 +240,10 @@ export async function getGithubStats(username: string) {
       }
     } catch (e) {
       lastError = e
-      // Если это ошибка rate limit, пробуем следующий токен
       if (e instanceof Error && e.message.includes("API rate limit exceeded")) {
         console.warn("[github] Rate limit exceeded for token, trying next...")
         continue
       }
-      // Для других ошибок (например, пользователь не найден) сразу выбрасываем
       throw e
     }
   }

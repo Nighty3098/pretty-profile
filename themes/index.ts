@@ -36,11 +36,11 @@ const themes: Record<string, Theme> = {
     accent: "#6e7ff3",
   },
   waterfall: {
-    name: 'waterfall',
-    background: '#f5f7fa',
-    backgroundImage: '/images/waterfall.jpg',
-    color: '#B86538',
-    accent: '#6e7ff3',
+    name: "waterfall",
+    background: "#f5f7fa",
+    backgroundImage: "/images/waterfall.jpg",
+    color: "#B86538",
+    accent: "#6e7ff3",
   },
   mac_bigsur: {
     name: "mac_bigsur",
@@ -58,10 +58,24 @@ const themes: Record<string, Theme> = {
   },
 }
 
-export function getTheme(name: string): Theme {
-  if (!themes[name]) {
-    console.log(`[themes] Theme '${name}' not found, using 'fuji'`)
+export function createCustomTheme(fg: string, bg: string): Theme {
+  return {
+    name: "custom",
+    background: bg,
+    color: fg,
+    accent: fg,
+  }
+}
+
+export function getTheme(name: string, fg?: string, bg?: string): Theme {
+  if (name === "custom" && fg && bg) {
+    return createCustomTheme(fg, bg)
   }
 
-  return themes[name] || themes["fuji"]
+  if (!themes[name]) {
+    console.log(`[themes] Theme '${name}' not found, using 'city'`)
+    return themes["city"]
+  }
+
+  return themes[name]
 }

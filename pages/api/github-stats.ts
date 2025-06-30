@@ -5,8 +5,8 @@ import { getGithubStats } from "../../utils/github"
 import { renderToSVG } from "../../utils/image"
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { username, theme = "fuji", show = "", about_me = "" } = req.query
-  console.log("[api] username:", username, "theme:", theme, "show:", show, "about_me:", about_me)
+  const { username, theme = "city", show = "", about_me = "", fg = "", bg = "" } = req.query
+  console.log("[api] username:", username, "theme:", theme, "show:", show, "about_me:", about_me, "fg:", fg, "bg:", bg)
 
   if (!username || typeof username !== "string") {
     res.status(400).send("Missing username")
@@ -16,6 +16,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const showList = typeof show === "string" && show.length > 0 ? show.split(",") : []
   const aboutMeStr = typeof about_me === "string" ? about_me : ""
+  const fgColor = typeof fg === "string" ? fg : ""
+  const bgColor = typeof bg === "string" ? bg : ""
 
   let stats
   try {
@@ -30,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     console.log("[api] Перед вызовом renderToSVG")
-    const themeData = getTheme(typeof theme === "string" ? theme : "fuji")
+    const themeData = getTheme(typeof theme === "string" ? theme : "city", fgColor, bgColor)
     const origin = req.headers.origin || `http://${req.headers.host}`
     const svg = await renderToSVG({
       stats,
@@ -40,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       about_me: aboutMeStr,
     })
     res.setHeader("Content-Type", "image/svg+xml")
-    res.setHeader("Cache-Control", "public, max-age=5")
+    res.setHeader("Cache-Control", "public, max-age=3600")
     res.setHeader("X-Data-Source", "github")
     res.status(200).send(svg)
   } catch (e) {

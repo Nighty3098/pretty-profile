@@ -17,42 +17,50 @@
 
 ### Waterfall:
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall&show=repoCount,stars,forks,followers,commits,closedPRs)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall)
 
 ```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall&show=repoCount,stars,forks,followers,commits,closedPRs
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall
 ```
 
 ### Night:
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=night&show=repoCount,stars,forks,followers,commits,closedPRs)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=night)
 
 ```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=night&show=repoCount,stars,forks,followers,commits,closedPRs
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=night
 ```
 
 ### Forest:
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest&show=repoCount,stars,forks,followers,commits,closedPRs)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest)
 
 ```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest&show=repoCount,stars,forks,followers,commits,closedPRs
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest
 ```
 
 ### Mac OS BigSur
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur&show=repoCount,stars,forks,followers,commits,closedPRs)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur)
 
 ```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur&show=repoCount,stars,forks,followers,commits,closedPRs
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur
 ```
 
 ### Mac OS BigSur Dark
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur_dark&show=repoCount,stars,forks,followers,commits,closedPRs)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur_dark)
 
 ```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur_dark&show=repoCount,stars,forks,followers,commits,closedPRs
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur_dark
+```
+
+### Custom
+
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=custom&fg=%23000000&bg=%236a55e8)
+
+```
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=custom&fg=%23000000&bg=%236a55e8
 ```
 
 ---
@@ -101,9 +109,11 @@ GET /api/github-stats
 ### Query Parameters
 
 - `username` (required) — GitHub username
-- `theme` (optional) — theme name (`city`, `forest`, `japan`, `night`, `waterfall`)
+- `theme` (optional) — theme name (`city`, `forest`, `japan`, `night`, `waterfall`, `mac_bigsur`, `mac_bigsur_dark`, `custom`)
 - `show` (optional) — comma-separated list of fields to explicitly show
 - `about_me` (optional) — any string to be displayed on the banner (e.g. a short bio or status)
+- `fg` (optional) — foreground (text) color for custom theme (e.g. "#ffffff")
+- `bg` (optional) — background color for custom theme (e.g. "#000000")
 
 ### Example Request
 
@@ -111,7 +121,13 @@ GET /api/github-stats
 GET /api/github-stats?username=octocat&theme=city&show=stars,commits,followers&about_me=Open%20Source%20Enthusiast
 ```
 
-**Response:** SVG banner with the "city" theme, showing only the fields "stars", "commits", and "followers", and displaying the text "Open Source Enthusiast" on the banner.
+### Custom Theme Example
+
+```
+GET /api/github-stats?username=octocat&theme=custom&fg=%23ffffff&bg=%23000000&show=stars,commits,followers
+```
+
+**Response:** SVG banner with custom colors, where text is white (#ffffff) and background is black (#000000)
 
 ---
 
