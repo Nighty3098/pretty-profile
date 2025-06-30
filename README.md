@@ -5,6 +5,7 @@
 ---
 
 ## Features
+
 - Generate SVG banners with GitHub statistics
 - Customizable themes (background, colors, images)
 - Flexible control over displayed fields (repositories, stars, forks, followers, commits, etc.)
@@ -15,6 +16,7 @@
 ## Usage
 
 ### Waterfall:
+
 ![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall&show=repoCount,stars,forks,followers,commits,closedPRs)
 
 ```
@@ -22,6 +24,7 @@ https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=wat
 ```
 
 ### Night:
+
 ![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=night&show=repoCount,stars,forks,followers,commits,closedPRs)
 
 ```
@@ -29,6 +32,7 @@ https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=nig
 ```
 
 ### Forest:
+
 ![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest&show=repoCount,stars,forks,followers,commits,closedPRs)
 
 ```
@@ -36,6 +40,7 @@ https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=for
 ```
 
 ### Mac OS BigSur
+
 ![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur&show=repoCount,stars,forks,followers,commits,closedPRs)
 
 ```
@@ -43,6 +48,7 @@ https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac
 ```
 
 ### Mac OS BigSur Dark
+
 ![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur_dark&show=repoCount,stars,forks,followers,commits,closedPRs)
 
 ```
@@ -62,6 +68,7 @@ https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac
 2. **Set up environment variables:**
 
    In the project root, create a `.env.local` file and add your GitHub tokens:
+
    ```env
    GITHUB_TOKEN_PT1=ghp_...
    GITHUB_TOKEN_PT2=ghp_...
@@ -92,12 +99,14 @@ GET /api/github-stats
 ```
 
 ### Query Parameters
+
 - `username` (required) — GitHub username
 - `theme` (optional) — theme name (`city`, `forest`, `japan`, `night`, `waterfall`)
 - `show` (optional) — comma-separated list of fields to explicitly show
 - `about_me` (optional) — any string to be displayed on the banner (e.g. a short bio or status)
 
 ### Example Request
+
 ```
 GET /api/github-stats?username=octocat&theme=city&show=stars,commits,followers&about_me=Open%20Source%20Enthusiast
 ```
@@ -122,7 +131,6 @@ You can add new themes and images
 - waterfall
 - mac_bigsur
 - mac_bigsur_dark
-
 
 ### Supported Fields
 
@@ -149,6 +157,7 @@ You can add new themes and images
 ---
 
 ## Technologies
+
 - Next.js (API routes)
 - TypeScript
 - satori (SVG rendering)
@@ -170,4 +179,4 @@ You can add new themes and images
 
 ## License
 
-MIT 
+MIT

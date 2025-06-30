@@ -1,24 +1,22 @@
-import satori from "satori";
-import type { Theme } from "../themes";
-import fs from "fs";
-import path from "path";
+import fs from "fs"
+import path from "path"
+import satori from "satori"
+
+import type { Theme } from "../themes"
 
 interface RenderParams {
-  stats: any;
-  theme: Theme;
-  show?: string[];
-  origin: string;
-  about_me: string;
+  stats: any
+  theme: Theme
+  show?: string[]
+  origin: string
+  about_me: string
 }
 
 // Загружаем шрифт Oswald один раз при старте
-const fontPath = path.resolve(
-  process.cwd(),
-  "public/fonts/IosevkaNerdFont-Bold.ttf"
-);
-const fontExists = fs.existsSync(fontPath);
-console.log("[satori] Font exists:", fontExists, fontPath);
-const fontData = fontExists ? fs.readFileSync(fontPath) : undefined;
+const fontPath = path.resolve(process.cwd(), "public/fonts/IosevkaNerdFont-Bold.ttf")
+const fontExists = fs.existsSync(fontPath)
+console.log("[satori] Font exists:", fontExists, fontPath)
+const fontData = fontExists ? fs.readFileSync(fontPath) : undefined
 
 const FIELD_LABELS: Record<string, string> = {
   repoCount: "Repos",
@@ -38,17 +36,11 @@ const FIELD_LABELS: Record<string, string> = {
   rating_percentile: "Rating Percentile",
   rating_level: "Rating Level",
   rating_name: "Rating Name",
-};
+}
 
-export async function renderToSVG({
-  stats,
-  theme,
-  show = [],
-  origin,
-  about_me,
-}: RenderParams): Promise<string> {
-  console.log("[satori] stats:", stats);
-  console.log("[satori] theme:", theme);
+export async function renderToSVG({ stats, theme, show = [], origin, about_me }: RenderParams): Promise<string> {
+  console.log("[satori] stats:", stats)
+  console.log("[satori] theme:", theme)
 
   const allFields = [
     "repoCount",
@@ -68,25 +60,17 @@ export async function renderToSVG({
     "rating_percentile",
     "rating_level",
     "rating_name",
-  ];
-  const defaultFields = [
-    "repoCount",
-    "stars",
-    "followers",
-    "following",
-    "issues",
-  ];
-  let fieldsToShow: string[];
+  ]
+  const defaultFields = ["repoCount", "stars", "followers", "following", "issues"]
+  let fieldsToShow: string[]
   if (show.length > 0) {
-    fieldsToShow = show.filter((f) => allFields.includes(f));
+    fieldsToShow = show.filter(f => allFields.includes(f))
   } else {
-    fieldsToShow = defaultFields;
+    fieldsToShow = defaultFields
   }
 
   // Абсолютный путь к картинке
-  const bgUrl = theme.backgroundImage
-    ? origin + theme.backgroundImage
-    : undefined;
+  const bgUrl = theme.backgroundImage ? origin + theme.backgroundImage : undefined
 
   try {
     return await satori(
@@ -107,8 +91,7 @@ export async function renderToSVG({
           padding: 100,
           boxSizing: "border-box",
           position: "relative",
-        }}
-      >
+        }}>
         {/* Overlay для затемнения фона */}
         {bgUrl && (
           <div
@@ -133,8 +116,7 @@ export async function renderToSVG({
             justifyContent: "center",
             width: "100%",
             zIndex: 2,
-          }}
-        >
+          }}>
           {/* Статистика слева */}
           <div
             style={{
@@ -144,8 +126,7 @@ export async function renderToSVG({
               justifyContent: "center",
               gap: 16,
               marginRight: 60,
-            }}
-          >
+            }}>
             <div
               style={{
                 marginTop: 8,
@@ -154,10 +135,9 @@ export async function renderToSVG({
                 gap: 12,
                 alignItems: "flex-start",
                 color: theme.color,
-              }}
-            >
+              }}>
               {fieldsToShow.map(
-                (field) =>
+                field =>
                   typeof stats[field] !== "undefined" && (
                     <div
                       key={field}
@@ -169,12 +149,11 @@ export async function renderToSVG({
                         color: theme.color,
                         fontSize: "35px",
                         fontWeight: "bolder",
-                        textShadow: "0px 0px 20px rgba(0, 0, 0, 0.5)"
-                      }}
-                    >
+                        textShadow: "0px 0px 20px rgba(0, 0, 0, 0.5)",
+                      }}>
                       {FIELD_LABELS[field] || field}: <b>{stats[field]}</b>
                     </div>
-                  )
+                  ),
               )}
             </div>
           </div>
@@ -186,8 +165,7 @@ export async function renderToSVG({
               alignItems: "flex-end",
               justifyContent: "center",
               width: "auto",
-            }}
-          >
+            }}>
             <img
               src={stats.avatar_url}
               width={400}
@@ -212,8 +190,7 @@ export async function renderToSVG({
               alignContent: "center",
               alignItems: "center",
               justifyContent: "center",
-            }}
-          >
+            }}>
             {about_me}
           </h1>
         )}
@@ -231,10 +208,10 @@ export async function renderToSVG({
               },
             ]
           : [],
-      }
-    );
+      },
+    )
   } catch (e) {
-    console.error("[satori] ERROR:", e);
-    throw e;
+    console.error("[satori] ERROR:", e)
+    throw e
   }
 }

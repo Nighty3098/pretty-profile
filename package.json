@@ -2,26 +2,40 @@
   "name": "pretty_banner",
   "version": "1.0.0",
   "private": true,
+  "bugs": {
+    "url": "https://github.com/Nighty3098/pretty-profile/issues"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@upstash/redis": "^1.35.0",
     "dotenv": "16.4.5",
+    "eslint": "^9.30.0",
     "lru-cache": "10.2.0",
     "next": "14.2.3",
     "node-fetch": "3.3.2",
+    "prettier": "^3.6.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "satori": "0.10.7",
     "typescript": "5.4.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.30.0",
     "@types/lru-cache": "5.1.1",
     "@types/node": "20.11.30",
-    "@types/react": "18.2.62"
+    "@types/react": "18.2.62",
+    "@typescript-eslint/eslint-plugin": "^8.35.0",
+    "@typescript-eslint/parser": "^8.35.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-prettier": "^5.5.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "typescript-eslint": "^8.35.0"
   }
 }
