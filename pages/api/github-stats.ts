@@ -5,8 +5,17 @@ import { getGithubStats } from "../../utils/github"
 import { renderToSVG } from "../../utils/image"
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { username, theme = "city", show = "", about_me = "", fg = "", bg = "" } = req.query
-  console.log("[api] username:", username, "theme:", theme, "show:", show, "about_me:", about_me, "fg:", fg, "bg:", bg)
+  const { username, theme = "city", show = "", about_me = "", fg = "", bg = "", hide_avatar = "false", langs = "false" } = req.query
+  const usernameStr = String(username)
+  const themeStr = String(theme)
+  const showStr = String(show)
+  const aboutMeStrLog = String(about_me)
+  const fgStr = String(fg)
+  const bgStr = String(bg)
+  const langsStr = String(langs)
+  console.log(`[api] username: ${usernameStr}, theme: ${themeStr}`)
+  console.log(`[api] show: ${showStr}, about_me: ${aboutMeStrLog}`)
+  console.log(`[api] fg: ${fgStr}, bg: ${bgStr}, langs: ${langsStr}`)
 
   if (!username || typeof username !== "string") {
     res.status(400).send("Missing username")
@@ -18,6 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const aboutMeStr = typeof about_me === "string" ? about_me : ""
   const fgColor = typeof fg === "string" ? fg : ""
   const bgColor = typeof bg === "string" ? bg : ""
+  const langsFlag = langs === "true"
 
   let stats
   try {
@@ -40,6 +50,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       show: showList,
       origin,
       about_me: aboutMeStr,
+      hide_avatar: hide_avatar === "true",
+      langs: langsFlag,
     })
     res.setHeader("Content-Type", "image/svg+xml")
     res.setHeader("Cache-Control", "public, max-age=3600")

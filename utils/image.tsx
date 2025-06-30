@@ -10,6 +10,8 @@ interface RenderParams {
   show?: string[]
   origin: string
   about_me: string
+  hide_avatar?: boolean
+  langs?: boolean
 }
 
 const fontPath = path.resolve(process.cwd(), "public/fonts/IosevkaNerdFont-Bold.ttf")
@@ -37,7 +39,7 @@ const FIELD_LABELS: Record<string, string> = {
   rating_name: "Rating Name",
 }
 
-export async function renderToSVG({ stats, theme, show = [], origin, about_me }: RenderParams): Promise<string> {
+export async function renderToSVG({ stats, theme, show = [], origin, about_me, hide_avatar = false, langs = false }: RenderParams): Promise<string> {
   console.log("[satori] stats:", stats)
   console.log("[satori] theme:", theme)
 
@@ -70,6 +72,98 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
 
   const bgUrl = theme.backgroundImage ? origin + theme.backgroundImage : undefined
 
+  if (langs && Array.isArray(stats.languages) && stats.languages.length > 0) {
+    const sortedLangs = [...stats.languages].sort((a, b) => b.size - a.size).slice(0, 6)
+    const total = sortedLangs.reduce((sum, l) => sum + l.size, 0)
+
+    return await satori(
+      <div
+        style={{
+          width: 1500,
+          height: 600,
+          background: bgUrl ? `url(${bgUrl})` : theme.background,
+          backgroundSize: "1500 600",
+          backgroundPosition: "center",
+          color: theme.color,
+          fontFamily: "Iosevka Nerd Font",
+          borderRadius: 70,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 100,
+          boxSizing: "border-box",
+          position: "relative",
+        }}>
+        {bgUrl && (
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "rgba(0, 0, 0, 0.2)",
+              borderRadius: 70,
+              zIndex: 1,
+            }}
+          />
+        )}
+        <div style={{ display: "flex", flexDirection: "column", gap: 18, zIndex: 2, width: 1100 }}>
+          {sortedLangs.map(lang => {
+            const percent = total > 0 ? (lang.size / total) * 100 : 0
+            return (
+              <div key={lang.name} style={{ display: "flex", alignItems: "center", fontSize: 36, fontWeight: 700, marginBottom: 10, width: 1100, justifyContent: "space-between" }}>
+                <span style={{ minWidth: 180 }}>{lang.name}</span>
+                <span
+                  style={{
+                    width: 320,
+                    height: 35,
+                    background: theme.color,
+                    borderRadius: 12,
+                    display: "block",
+                    overflow: "hidden",
+                    position: "relative",
+                    padding: 0,
+                    margin: 0
+                  }}>
+                  <span
+                    style={{
+                      display: "block",
+                      height: "100%",
+                      width: `${percent}%`,
+                      background: theme.accent,
+                      borderRadius: 12,
+                      transition: "width 0.3s",
+                      padding: 0,
+                      margin: 0,
+                    }}
+                  >
+                    <span style={{ marginLeft: 18, color: theme.background, fontWeight: 900, minWidth: 70 }}>{percent.toFixed(1)}%</span>
+                  </span>
+                </span>
+              </div>
+            )
+          })}
+        </div>
+      </div>,
+      {
+        width: 1500,
+        height: 600,
+        fonts: fontData
+          ? [
+              {
+                name: "Iosevka Nerd Font",
+                data: fontData,
+                weight: 700,
+                style: "normal",
+              },
+            ]
+          : [],
+      },
+    )
+  }
+
   try {
     return await satori(
       <div
@@ -85,12 +179,26 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "flex-start",
+          justifyContent: "center",
           padding: 100,
           boxSizing: "border-box",
           position: "relative",
-        }}
-      >
+        }}>
+        {/* Overlay для затемнения фона */}
+        {bgUrl && (
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "rgba(0, 0, 0, 0.2)",
+              borderRadius: 70,
+              zIndex: 1,
+            }}
+          />
+        )}
         <div
           style={{
             display: "flex",
@@ -99,8 +207,7 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
             justifyContent: "center",
             width: "100%",
             zIndex: 2,
-          }}
-        >
+          }}>
           <div
             style={{
               display: "flex",
@@ -108,9 +215,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
               alignItems: "flex-start",
               justifyContent: "center",
               gap: 16,
-              marginRight: 60,
-            }}
-          >
+              marginRight: hide_avatar ? 0 : 60,
+            }}>
             <div
               style={{
                 marginTop: 8,
@@ -119,8 +225,7 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
                 gap: 12,
                 alignItems: "flex-start",
                 color: theme.color,
-              }}
-            >
+              }}>
               {fieldsToShow.map(
                 field =>
                   typeof stats[field] !== "undefined" && (
@@ -129,40 +234,40 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
                       style={{
                         display: "flex",
                         flexDirection: "row",
-                        width: "800",
+                        width: hide_avatar ? "1100" : "800",
                         justifyContent: "space-between",
                         color: theme.color,
                         fontSize: "35px",
                         fontWeight: "bolder",
                         textShadow: "0px 0px 20px rgba(0, 0, 0, 0.5)",
-                      }}
-                    >
+                      }}>
                       {FIELD_LABELS[field] || field}: <b>{stats[field]}</b>
                     </div>
                   ),
               )}
             </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-end",
-              justifyContent: "center",
-              width: "auto",
-            }}
-          >
-            <img
-              src={stats.avatar_url}
-              width={400}
-              height={400}
+          {!hide_avatar && (
+            <div
               style={{
-                borderRadius: "50%",
-                marginBottom: 0,
-                border: `0px solid ${theme.accent}`,
-              }}
-            />
-          </div>
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
+                justifyContent: "center",
+                width: "auto",
+              }}>
+              <img
+                src={stats.avatar_url}
+                width={400}
+                height={400}
+                style={{
+                  borderRadius: "50%",
+                  marginBottom: 0,
+                  border: `0px solid ${theme.accent}`,
+                }}
+              />
+            </div>
+          )}
         </div>
         {about_me && (
           <h1
@@ -175,8 +280,7 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
               alignContent: "center",
               alignItems: "center",
               justifyContent: "center",
-            }}
-          >
+            }}>
             {about_me}
           </h1>
         )}
