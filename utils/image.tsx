@@ -89,22 +89,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
           padding: 100,
           boxSizing: "border-box",
           position: "relative",
-        }}>
-        {/* Overlay для затемнения фона */}
-        {bgUrl && (
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.05)",
-              borderRadius: 70,
-              zIndex: 1,
-            }}
-          />
-        )}
+        }}
+      >
         <div
           style={{
             display: "flex",
@@ -113,7 +99,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
             justifyContent: "center",
             width: "100%",
             zIndex: 2,
-          }}>
+          }}
+        >
           <div
             style={{
               display: "flex",
@@ -122,7 +109,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
               justifyContent: "center",
               gap: 16,
               marginRight: 60,
-            }}>
+            }}
+          >
             <div
               style={{
                 marginTop: 8,
@@ -131,7 +119,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
                 gap: 12,
                 alignItems: "flex-start",
                 color: theme.color,
-              }}>
+              }}
+            >
               {fieldsToShow.map(
                 field =>
                   typeof stats[field] !== "undefined" && (
@@ -146,7 +135,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
                         fontSize: "35px",
                         fontWeight: "bolder",
                         textShadow: "0px 0px 20px rgba(0, 0, 0, 0.5)",
-                      }}>
+                      }}
+                    >
                       {FIELD_LABELS[field] || field}: <b>{stats[field]}</b>
                     </div>
                   ),
@@ -160,7 +150,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
               alignItems: "flex-end",
               justifyContent: "center",
               width: "auto",
-            }}>
+            }}
+          >
             <img
               src={stats.avatar_url}
               width={400}
@@ -184,7 +175,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me }:
               alignContent: "center",
               alignItems: "center",
               justifyContent: "center",
-            }}>
+            }}
+          >
             {about_me}
           </h1>
         )}
