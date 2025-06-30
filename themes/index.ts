@@ -70,6 +70,12 @@ const themes: Record<string, Theme> = {
     color: "#fff",
     accent: "#4e1293",
   },
+  white: {
+    name: "white",
+    background: "#fff",
+    color: "#000",
+    accent: "#696969",
+  },
 }
 
 export function createCustomTheme(fg: string, bg: string): Theme {

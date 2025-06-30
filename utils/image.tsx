@@ -103,7 +103,7 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.2)",
+              backgroundColor: theme.name === "white" ? "rgba(0, 0, 0, 0.2)" : "transparent",
               borderRadius: 70,
               zIndex: 1,
             }}
@@ -114,7 +114,7 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
             const percent = total > 0 ? (lang.size / total) * 100 : 0
             return (
               <div key={lang.name} style={{ display: "flex", alignItems: "center", fontSize: 36, fontWeight: 700, marginBottom: 10, width: 1100, justifyContent: "space-between" }}>
-                <span style={{ minWidth: 180 }}>{lang.name}</span>
+                <span style={{ minWidth: 180, textShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)", }}>{lang.name}</span>
                 <span
                   style={{
                     width: 320,
@@ -125,7 +125,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
                     overflow: "hidden",
                     position: "relative",
                     padding: 0,
-                    margin: 0
+                    margin: 0,
+                    boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)"
                   }}>
                   <span
                     style={{
@@ -207,6 +208,7 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
             justifyContent: "center",
             width: "100%",
             zIndex: 2,
+            gap: 150
           }}>
           <div
             style={{
@@ -234,12 +236,12 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
                       style={{
                         display: "flex",
                         flexDirection: "row",
-                        width: hide_avatar ? "1100" : "800",
+                        width: hide_avatar ? "1100" : "600",
                         justifyContent: "space-between",
                         color: theme.color,
                         fontSize: "35px",
                         fontWeight: "bolder",
-                        textShadow: "0px 0px 20px rgba(0, 0, 0, 0.5)",
+                        textShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)",
                       }}>
                       {FIELD_LABELS[field] || field}: <b>{stats[field]}</b>
                     </div>
