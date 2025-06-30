@@ -1,19 +1,16 @@
-# pretty-profile
+# Pretty Banner
 
-**pretty-profile** is a server-side application based on Next.js for generating SVG banners with a user's GitHub statistics. Banners are customizable with themes and display key metrics of a user's GitHub activity.
-
----
+**Pretty Banner** is a Next.js-based service for generating beautiful, customizable SVG banners with GitHub profile statistics. It is designed for use in GitHub READMEs, personal websites, and dashboards, providing visually appealing, themeable, and informative profile cards.
 
 ## Features
+- Fetches and visualizes GitHub user statistics (repos, stars, followers, languages, etc.)
+- Generates SVG banners with multiple themes and custom backgrounds
+- Supports custom color schemes and user-defined themes
+- Optionally displays top programming languages
+- Supports hiding the avatar and adding a custom "about me" text
+- Fast, stateless API endpoint for easy integration
 
-- Generate SVG banners with GitHub statistics
-- Customizable themes (background, colors, images)
-- Flexible control over displayed fields (repositories, stars, forks, followers, commits, etc.)
-- Support for multiple GitHub API tokens to bypass rate limits
-
----
-
-## Usage
+## Demo
 
 ### Waterfall:
 
@@ -43,7 +40,22 @@ https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=anc
 https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=ancient&langs=true
 ```
 
-### Forest:
+### Simple:
+
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=simple)
+
+```
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=simple
+```
+
+
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=simple&langs=true)
+
+```
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=simple&langs=true
+```
+
+### White:
 
 ![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=white)
 
@@ -66,154 +78,87 @@ https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=whi
 https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=custom&fg=%23000000&bg=%236a55e8
 ```
 
----
-
-## Quick Start
-
-1. **Install dependencies:**
-
-   ```bash
-   npm install
-   ```
-
-2. **Set up environment variables:**
-
-   In the project root, create a `.env.local` file and add your GitHub tokens:
-
-   ```env
-   GITHUB_TOKEN_PT1=ghp_...
-   GITHUB_TOKEN_PT2=ghp_...
-   # ...
-   ```
-
-3. **Run in development mode:**
-
-   ```bash
-   npm run dev
-   ```
-
-4. **Production build:**
-
-   ```bash
-   npm run build
-   npm start
-   ```
-
----
 
 ## API Usage
-
 ### Endpoint
-
 ```
 GET /api/github-stats
 ```
 
 ### Query Parameters
+| Name         | Type    | Default | Description                                                                 |
+|--------------|---------|---------|-----------------------------------------------------------------------------|
+| username     | string  | —       | **(Required)** GitHub username                                              |
+| theme        | string  | city    | Theme name (see below for available themes)                                 |
+| fg           | string  |         | Custom foreground (text) color (hex or CSS)                                 |
+| bg           | string  |         | Custom background color (hex or CSS)                                        |
+| show         | string  |         | Comma-separated list of fields to show (e.g. `stars,followers`)             |
+| about_me     | string  |         | Custom text to display at the bottom of the banner                          |
+| hide_avatar  | boolean | false   | Hide the user's avatar ("true" or "false")                                 |
+| langs        | boolean | false   | Show top programming languages ("true" or "false")                         |
 
-- `username` (required) — GitHub username
-- `theme` (optional) — theme name (`city`, `forest`, `japan`, `night`, `waterfall`, `mac_bigsur`, `mac_bigsur_dark`, `custom`)
-- `show` (optional) — comma-separated list of fields to explicitly show
-- `about_me` (optional) — any string to be displayed on the banner (e.g. a short bio or status)
-- `fg` (optional) — foreground (text) color for custom theme (e.g. "#ffffff")
-- `bg` (optional) — background color for custom theme (e.g. "#000000")
-- `hide_avatar` (optional) — set to `true` to hide the avatar and expand the stats block (default: `false`)
-- `langs` (optional) — set to `true` to show a language usage chart instead of GitHub stats
-
-### Example Request
-
+### Example
 ```
-GET /api/github-stats?username=octocat&theme=city&show=stars,commits,followers&about_me=Open%20Source%20Enthusiast
-```
-
-### Languages Chart Example
-
-```
-GET /api/github-stats?username=octocat&langs=true
+/api/github-stats?username=Nighty3098&theme=night&show=stars,followers,commits&about_me=Open%20Source%20Enthusiast&hide_avatar=true&langs=true
 ```
 
-**Response:** SVG banner with a chart of the top 6 programming languages used by the user (with progress bars and percentages).
-
-### Hide Avatar Example
-
-```
-GET /api/github-stats?username=octocat&hide_avatar=true
-```
-
-**Response:** SVG banner without the avatar, stats block width is increased.
-
-### Custom Theme Example
-
-```
-GET /api/github-stats?username=octocat&theme=custom&fg=%23ffffff&bg=%23000000&show=stars,commits,followers
-```
-
-**Response:** SVG banner with custom colors, where text is white (#ffffff) and background is black (#000000)
-
----
-
-## Customization
-
-### Themes
-
-Defined in `themes/index.ts`
-
-Image resources are in `public/images/`
-
-You can add new themes and images
-
+## Available Themes
 - city
 - forest
+- japan
 - night
 - waterfall
+- ancient
+- solarized
 - mac_bigsur
 - mac_bigsur_dark
+- white
+- simple
 
-### Supported Fields
+Each theme has its own background image and color palette. You can also use custom colors via `fg` and `bg` parameters.
 
-> You can explicitly show fields using the `show` parameter
+## Customization
+- **Custom Colors:** Use `fg` and `bg` to override text and background colors.
+- **Custom Fields:** Use `show` to select which stats to display.
+- **Languages:** Set `langs=true` to show a bar of top languages.
+- **Avatar:** Set `hide_avatar=true` to hide the profile picture.
+- **About Me:** Add a custom message with `about_me`.
 
-- repoCount
-- public_repos
-- stars
-- forks
-- followers
-- following
-- public_gists
-- issues
-- commits
-- closedPRs
-- reviews
-- name
-- login
-- rating_score
-- rating_percentile
-- rating_level
-- rating_name
+## Installation & Development
+1. Clone the repository:
+   ```
+   git clone https://github.com/Nighty3098/pretty_banner.git
+   cd pretty_banner
+   ```
+2. Install dependencies:
+   ```
+   yarn install
+   # or
+   npm install
+   ```
+3. Create a `.env` file and add your GitHub API tokens as `GITHUB_TOKEN_PT1`, `GITHUB_TOKEN_PT2`, ...
+4. Run the development server:
+   ```
+   yarn dev
+   # or
+   npm run dev
+   ```
+5. Open [http://localhost:3000](http://localhost:3000) and use the API endpoint as described above.
 
----
+## Scripts
+- `dev` — Start Next.js in development mode
+- `build` — Build the project for production
+- `start` — Start the production server
+- `lint` — Run ESLint with auto-fix
+- `format` — Format code with Prettier
 
-## Technologies
+## Code Style
+- TypeScript, React, Next.js
+- Prettier and ESLint are configured (see `.prettierrc.yaml` and `eslint.config.mjs`)
+- Main font: [Iosevka Nerd Font](https://github.com/ryanoasis/nerd-fonts)
 
-- Next.js (API routes)
-- TypeScript
-- satori (SVG rendering)
-- node-fetch (GitHub API)
-- Custom themes and fonts
-
----
-
-## Project Structure
-
-- `pages/api/github-stats.ts` — main API endpoint
-- `utils/github.ts` — GitHub API integration, metrics and rating calculation
-- `utils/image.tsx` — SVG banner generation
-- `themes/index.ts` — theme definitions
-- `public/images/` — images for themes
-- `public/fonts/` — custom font for banners
-
----
+## Issues
+Please report bugs and suggestions via [GitHub Issues](https://github.com/Nighty3098/pretty-profile/issues).
 
 ## License
-
-MIT
+This project is for personal use and demonstration. See repository for details.$$

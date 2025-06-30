@@ -114,35 +114,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
             const percent = total > 0 ? (lang.size / total) * 100 : 0
             return (
               <div key={lang.name} style={{ display: "flex", alignItems: "center", fontSize: 36, fontWeight: 700, marginBottom: 10, width: 1100, justifyContent: "space-between" }}>
-                <span style={{ minWidth: 180, textShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)", }}>{lang.name}</span>
-                <span
-                  style={{
-                    width: 320,
-                    height: 35,
-                    background: theme.color,
-                    borderRadius: 12,
-                    display: "block",
-                    overflow: "hidden",
-                    position: "relative",
-                    padding: 0,
-                    margin: 0,
-                    boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)"
-                  }}>
-                  <span
-                    style={{
-                      display: "block",
-                      height: "100%",
-                      width: `${percent}%`,
-                      background: theme.accent,
-                      borderRadius: 12,
-                      transition: "width 0.3s",
-                      padding: 0,
-                      margin: 0,
-                    }}
-                  >
-                    <span style={{ marginLeft: 18, color: theme.background, fontWeight: 900, minWidth: 70 }}>{percent.toFixed(1)}%</span>
-                  </span>
-                </span>
+                <span style={{ minWidth: 180, textShadow: "0px 0px 20px rgba(0, 0, 0, 0.35)", }}>{lang.name}</span>
+                <span style={{ height: 40, marginLeft: 18, color: theme.color, fontWeight: 900, minWidth: 70 }}>{percent.toFixed(1)}%</span>
               </div>
             )
           })}
@@ -240,7 +213,7 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
                         color: theme.color,
                         fontSize: "35px",
                         fontWeight: "bolder",
-                        textShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)",
+                        textShadow: "0px 0px 20px rgba(0, 0, 0, 0.35)",
                       }}>
                       {FIELD_LABELS[field] || field}: <b>{stats[field]}</b>
                     </div>
