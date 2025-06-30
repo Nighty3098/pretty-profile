@@ -17,16 +17,16 @@
 
 ### Waterfall:
 
-![](http://localhost:3000/api/github-stats?username=Nighty3098&theme=waterfall)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall)
 
 ```
 https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall&hide_avatar=true
 ```
 
-![](http://localhost:3000/api/github-stats?username=Nighty3098&theme=waterfall&langs=true)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall&langs=true)
 
 ```
-http://localhost:3000/api/github-stats?username=Nighty3098&theme=waterfall&langs=true
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall&langs=true
 ```
 
 ### Ancient
@@ -37,10 +37,10 @@ http://localhost:3000/api/github-stats?username=Nighty3098&theme=waterfall&langs
 https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=ancient
 ```
 
-![](http://localhost:3000/api/github-stats?username=Nighty3098&theme=ancient&langs=true)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=ancient&langs=true)
 
 ```
-http://localhost:3000/api/github-stats?username=Nighty3098&theme=ancient&langs=true
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=ancient&langs=true
 ```
 
 ### Forest:
