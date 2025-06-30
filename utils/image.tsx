@@ -118,7 +118,7 @@ export async function renderToSVG({
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.2)",
+              backgroundColor: "rgba(0, 0, 0, 0.05)",
               borderRadius: 70,
               zIndex: 1,
             }}
@@ -169,6 +169,7 @@ export async function renderToSVG({
                         color: theme.color,
                         fontSize: "35px",
                         fontWeight: "bolder",
+                        textShadow: "0px 0px 20px rgba(0, 0, 0, 0.5)"
                       }}
                     >
                       {FIELD_LABELS[field] || field}: <b>{stats[field]}</b>

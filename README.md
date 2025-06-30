@@ -12,6 +12,45 @@
 
 ---
 
+## Usage
+
+### Waterfall:
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall&show=repoCount,stars,forks,followers,commits,closedPRs)
+
+```
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall&show=repoCount,stars,forks,followers,commits,closedPRs
+```
+
+### Night:
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=night&show=repoCount,stars,forks,followers,commits,closedPRs)
+
+```
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=night&show=repoCount,stars,forks,followers,commits,closedPRs
+```
+
+### Forest:
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest&show=repoCount,stars,forks,followers,commits,closedPRs)
+
+```
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest&show=repoCount,stars,forks,followers,commits,closedPRs
+```
+
+### Mac OS BigSur
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur&show=repoCount,stars,forks,followers,commits,closedPRs)
+
+```
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur&show=repoCount,stars,forks,followers,commits,closedPRs
+```
+
+### Mac OS BigSur Dark
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur_dark&show=repoCount,stars,forks,followers,commits,closedPRs)
+
+```
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur_dark&show=repoCount,stars,forks,followers,commits,closedPRs
+```
+
+---
+
 ## Quick Start
 
 1. **Install dependencies:**
@@ -54,7 +93,7 @@ GET /api/github-stats
 
 ### Query Parameters
 - `username` (required) — GitHub username
-- `theme` (optional) — theme name (`city`, `forest`, `japan`, `night`, `skyfall`)
+- `theme` (optional) — theme name (`city`, `forest`, `japan`, `night`, `waterfall`)
 - `show` (optional) — comma-separated list of fields to explicitly show
 - `about_me` (optional) — any string to be displayed on the banner (e.g. a short bio or status)
 

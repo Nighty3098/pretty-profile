@@ -35,11 +35,25 @@ const themes: Record<string, Theme> = {
     color: '#FEC639',
     accent: '#6e7ff3',
   },
-  skyfall: {
-    name: 'skyfall',
+  waterfall: {
+    name: 'waterfall',
     background: '#f5f7fa',
-    backgroundImage: '/images/skyfall.jpg',
+    backgroundImage: '/images/waterfall.jpg',
     color: '#B86538',
+    accent: '#6e7ff3',
+  },
+  mac_bigsur: {
+    name: 'mac_bigsur',
+    background: '#f5f7fa',
+    backgroundImage: '/images/mac_bigsur.png',
+    color: '#000',
+    accent: '#6e7ff3',
+  },
+  mac_bigsur_dark: {
+    name: 'mac_bigsur_dark',
+    background: '#f5f7fa',
+    backgroundImage: '/images/mac_bigsur_dark.png',
+    color: '#fff',
     accent: '#6e7ff3',
   },
 };
