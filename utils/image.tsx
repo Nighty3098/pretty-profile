@@ -208,7 +208,6 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
             justifyContent: "center",
             width: "100%",
             zIndex: 2,
-            gap: 150
           }}>
           <div
             style={{
@@ -236,7 +235,7 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
                       style={{
                         display: "flex",
                         flexDirection: "row",
-                        width: hide_avatar ? "1100" : "600",
+                        width: hide_avatar ? "1100" : "800",
                         justifyContent: "space-between",
                         color: theme.color,
                         fontSize: "35px",
