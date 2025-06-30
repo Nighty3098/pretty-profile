@@ -1,0 +1,219 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+@font-face {
+  font-family: "Iosevka Nerd Font";
+  src: url("/fonts/IosevkaNerdFont-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
+ *  font-family: "Rubik", sans-serif;
+ *  font-family: "Wodrk Sans", sans-serif;
+ *  font-family: "Roboto Condensed", sans-serif;
+*/
+
+:root {
+  --bg: rgb(226 157 109);
+  --bg2: rgb(226 157 109/0.6);
+  --fg: rgb(26, 32, 44);
+  --tr: rgba(255, 255, 255, 0.7);
+  --white: rgb(255, 255, 255);
+  --accent: rgb(107, 70, 193);
+  --shadow: 0px 15px 30px rgba(0, 0, 0, 0.5);
+  --shadow-s: 0px 15px 30px rgba(0, 0, 0, 0.1);
+  --welcome-shadow: var(--fg);
+  --noisy-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.37' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+}
+
+* {
+  font-family: "Iosevka Nerd Font", Arial, sans-serif;
+  user-select: none;
+}
+
+html {
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: flex-start;
+  height: auto;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: flex-start;
+  height: auto;
+  width: 85%;
+  margin: 0px;
+  padding: 0px;
+}
+
+#__next {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  height: auto;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  padding-bottom: 100px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 50px;
+  font-weight: bolder;
+  font-family: "Roboto Condensed", sans-serif;
+  text-shadow: var(--shadow);
+}
+
+h2 {
+  font-size: 1.5rem;
+  line-height: 3rem;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+input {
+  background-color: var(--tr);
+  border: none;
+  height: 40px;
+  border-radius: 13px;
+  text-align: center;
+  width: 200px;
+}
+
+select {
+  background-color: var(--tr);
+  border: none;
+  height: 40px;
+  border-radius: 13px;
+  width: 200px;
+  text-align: center;
+}
+
+.item {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+}
+
+button {
+  height: 40px;
+  border-radius: 13px;
+  border: none;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: var(--tr);
+  color: var(--fg);
+  transition: all 1s ease-in-out;
+}
+
+button:hover {
+  background-color: var(--accent);
+  color: var(--bg);
+  box-shadow: var(--shadow);
+}
+
+p {
+  height: 40px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.checkbox {
+  width: 25px;
+  height: 25px;
+  min-width: 25px;
+  min-height: 25px;
+  max-width: 25px;
+  max-height: 25px;
+  margin: 0;
+  margin-right: var(--spacing-s);
+  padding: 0;
+  border-radius: 8px;
+  background-color: var(--fg);
+  appearance: none;
+  cursor: pointer;
+  transition: all 0.4s ease-in;
+  box-sizing: border-box;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: medium;
+  font-weight: 1000;
+  border: none;
+}
+
+.checkbox:checked {
+  color: var(--bg);
+}
+
+.checkbox:checked::after {
+  content: "\2713";
+  opacity: 1;
+  transform: scale(1.2);
+  font-weight: bolder;
+  color: var(--bg);
+  transition:
+    opacity 0.4s ease-in,
+    transform 0.4s ease-in;
+}
+
+.checkbox::after {
+  content: "";
+  opacity: 0;
+  transform: scale(0.1);
+  transition:
+    opacity 0.4s ease-in,
+    transform 0.4s ease-in;
+}
+
+.banner-preview {
+  background: var(--tr);
+  padding: 24px;
+  border-radius: 24px;
+  margin-top: 16px;
+}
+
+.color-selector {
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  border-radius: 13px;
+}
+
+.link-paragraph {
+  background-color: var(--tr);
+  padding: 20px;
+  border-radius: 13px;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
+
+.grid_1 {
+  grid-template-columns: auto auto auto;
+}
+
+@media (max-width: 1200px) {
+  .grid_1 {
+    grid-template-columns: auto auto auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .grid_1 {
+    grid-template-columns: auto auto;
+  }
+}

@@ -6,7 +6,7 @@ export type Theme = {
   accent: string
 }
 
-const themes: Record<string, Theme> = {
+export const themes: Record<string, Theme> = {
   city: {
     name: "city",
     background: "#0b1929",
