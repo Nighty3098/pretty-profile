@@ -109,31 +109,42 @@ GET /api/github-stats?username=octocat&theme=city&show=stars,commits,followers&a
 ## Customization
 
 ### Themes
-- Defined in `themes/index.ts`
-- Image resources are in `public/images/`
-- You can add new themes and images
+
+Defined in `themes/index.ts`
+
+Image resources are in `public/images/`
+
+You can add new themes and images
+
+- city
+- forest
+- night
+- waterfall
+- mac_bigsur
+- mac_bigsur_dark
+
 
 ### Supported Fields
 
 > You can explicitly show fields using the `show` parameter
 
-- `repoCount`
-- `public_repos`
-- `stars`
-- `forks`
-- `followers`
-- `following`
-- `public_gists`
-- `issues`
-- `commits`
-- `closedPRs`
-- `reviews`
-- `name`
-- `login`
-- `rating_score`
-- `rating_percentile`
-- `rating_level`
-- `rating_name`
+- repoCount
+- public_repos
+- stars
+- forks
+- followers
+- following
+- public_gists
+- issues
+- commits
+- closedPRs
+- reviews
+- name
+- login
+- rating_score
+- rating_percentile
+- rating_level
+- rating_name
 
 ---
 
