@@ -56,13 +56,14 @@ GET /api/github-stats
 - `username` (required) — GitHub username
 - `theme` (optional) — theme name (`city`, `forest`, `japan`, `night`, `skyfall`)
 - `show` (optional) — comma-separated list of fields to explicitly show
+- `about_me` (optional) — any string to be displayed on the banner (e.g. a short bio or status)
 
 ### Example Request
 ```
-GET /api/github-stats?username=octocat&theme=city&show=stars,commits,followers
+GET /api/github-stats?username=octocat&theme=city&show=stars,commits,followers&about_me=Open%20Source%20Enthusiast
 ```
 
-**Response:** SVG banner with the "city" theme, showing only the fields "stars", "commits", and "followers".
+**Response:** SVG banner with the "city" theme, showing only the fields "stars", "commits", and "followers", and displaying the text "Open Source Enthusiast" on the banner.
 
 ---
 

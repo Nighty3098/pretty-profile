@@ -4,8 +4,8 @@ import { getTheme } from '../../themes';
 import { renderToSVG } from '../../utils/image';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { username, theme = 'fuji', show = '' } = req.query;
-  console.log('[api] username:', username, 'theme:', theme, 'show:', show);
+  const { username, theme = 'fuji', show = '', about_me = '' } = req.query;
+  console.log('[api] username:', username, 'theme:', theme, 'show:', show, 'about_me:', about_me);
 
   if (!username || typeof username !== 'string') {
     res.status(400).send('Missing username');
@@ -13,6 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   const showList = typeof show === 'string' && show.length > 0 ? show.split(',') : [];
+  const aboutMeStr = typeof about_me === 'string' ? about_me : '';
 
   let stats;
   try {
@@ -28,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log('[api] Перед вызовом renderToSVG');
     const themeData = getTheme(typeof theme === 'string' ? theme : 'fuji');
     const origin = req.headers.origin || `http://${req.headers.host}`;
-    const svg = await renderToSVG({ stats, theme: themeData, show: showList, origin });
+    const svg = await renderToSVG({ stats, theme: themeData, show: showList, origin, about_me: aboutMeStr });
     res.setHeader('Content-Type', 'image/svg+xml');
     res.setHeader('Cache-Control', 'public, max-age=3600');
     res.setHeader('X-Data-Source', 'github');
