@@ -103,7 +103,7 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: theme.name === "white" ? "rgba(0, 0, 0, 0.2)" : "transparent",
+              backgroundColor: "rgba(0, 0, 0, 0.1)",
               borderRadius: 70,
               zIndex: 1,
             }}
@@ -113,9 +113,37 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
           {sortedLangs.map(lang => {
             const percent = total > 0 ? (lang.size / total) * 100 : 0
             return (
-              <div key={lang.name} style={{ display: "flex", alignItems: "center", fontSize: 36, fontWeight: 700, marginBottom: 10, width: 1100, justifyContent: "space-between" }}>
-                <span style={{ minWidth: 180, textShadow: "0px 0px 20px rgba(0, 0, 0, 0.35)", }}>{lang.name}</span>
-                <span style={{ height: 40, marginLeft: 18, color: theme.color, fontWeight: 900, minWidth: 70 }}>{percent.toFixed(1)}%</span>
+              <div
+                key={lang.name}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  fontSize: 36,
+                  fontWeight: 700,
+                  marginBottom: 10,
+                  width: 1100,
+                  justifyContent: "space-between"
+                }}
+              >
+                <span
+                  style={{
+                    minWidth: 180,
+                    textShadow: "0px 0px 20px rgba(0, 0, 0, 0.35)"
+                  }}
+                >
+                  {lang.name}
+                </span>
+                <span
+                  style={{
+                    height: 40,
+                    marginLeft: 18,
+                    color: theme.color,
+                    fontWeight: 900,
+                    minWidth: 70
+                  }}
+                >
+                  {percent.toFixed(1)}%
+                </span>
               </div>
             )
           })}
@@ -167,7 +195,7 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.2)",
+              backgroundColor: "rgba(0, 0, 0, 0.1)",
               borderRadius: 70,
               zIndex: 1,
             }}
