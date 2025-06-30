@@ -17,42 +17,50 @@
 
 ### Waterfall:
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall&show=repoCount,stars,forks,followers,commits,closedPRs)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall)
 
 ```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall&show=repoCount,stars,forks,followers,commits,closedPRs
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall
 ```
 
 ### Night:
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=night&show=repoCount,stars,forks,followers,commits,closedPRs)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=night)
 
 ```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=night&show=repoCount,stars,forks,followers,commits,closedPRs
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=night
 ```
 
 ### Forest:
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest&show=repoCount,stars,forks,followers,commits,closedPRs)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest)
 
 ```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest&show=repoCount,stars,forks,followers,commits,closedPRs
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest
 ```
 
 ### Mac OS BigSur
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur&show=repoCount,stars,forks,followers,commits,closedPRs)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur)
 
 ```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur&show=repoCount,stars,forks,followers,commits,closedPRs
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur
 ```
 
 ### Mac OS BigSur Dark
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur_dark&show=repoCount,stars,forks,followers,commits,closedPRs)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur_dark)
 
 ```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur_dark&show=repoCount,stars,forks,followers,commits,closedPRs
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=mac_bigsur_dark
+```
+
+### Custom
+
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=custom&fg=%23000000&bg=%236a55e8)
+
+```
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=custom&fg=%23000000&bg=%236a55e8
 ```
 
 ---
