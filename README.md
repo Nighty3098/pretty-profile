@@ -45,10 +45,10 @@ https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=anc
 
 ### Forest:
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=white)
 
 ```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=forest
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=white
 ```
 
 
