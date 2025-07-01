@@ -1,20 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import { themes } from "../themes"
 
-const randomStats = {
-  name: "John Doe",
-  login: "johndoe",
-  repoCount: 42,
-  stars: 1234,
-  followers: 567,
-  following: 89,
-  issues: 12,
-  commits: 3456,
-  closedPRs: 78,
-  reviews: 9,
-  avatar_url: "https://avatars.githubusercontent.com/u/583231?v=4",
-}
-
 const allFields = [
   "repoCount",
   "public_repos",
@@ -60,6 +46,7 @@ export default function Home() {
     fetch(`/api/preview-banner?${params.toString()}`)
       .then(res => res.text())
       .then(setSvg)
+      .catch(() => setSvg(null))
   }, [theme, fg, bg, hideAvatar, langs, showFields])
 
   const handleCopy = () => {
@@ -140,12 +127,10 @@ export default function Home() {
         <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
       </label>
       {!langs && (
-        <>
-          <label className="item">
-            <p>Show avatar:</p>
-            <input type="checkbox" className="checkbox" checked={!hideAvatar} onChange={e => setHideAvatar(!e.target.checked)} />
-          </label>
-        </>
+        <label className="item">
+          <p>Show avatar:</p>
+          <input type="checkbox" className="checkbox" checked={!hideAvatar} onChange={e => setHideAvatar(!e.target.checked)} />
+        </label>
       )}
       <label className="item">
         <p>Languages mode:</p>
@@ -233,7 +218,9 @@ export default function Home() {
       <button type="button" onClick={handleCopy} style={{ marginBottom: 8 }}>
         Copy link
       </button>
-      {copySuccess && <span style={{ marginLeft: 8, color: "green" }}>{copySuccess}</span>}
+      {copySuccess && (
+        <span style={{ marginLeft: 8, color: "green" }}>{copySuccess}</span>
+      )}
     </div>
   )
 }
