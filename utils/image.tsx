@@ -39,7 +39,166 @@ const FIELD_LABELS: Record<string, string> = {
   rating_name: "Rating Name",
 }
 
-export async function renderToSVG({ stats, theme, show = [], origin, about_me, hide_avatar = false, langs = false }: RenderParams): Promise<string> {
+function getFieldsToShow(show: string[], allFields: string[], defaultFields: string[]): string[] {
+  return show.length > 0 ? show.filter(f => allFields.includes(f)) : defaultFields
+}
+
+function getBgUrl(theme: Theme, origin: string): string | undefined {
+  return theme.backgroundImage ? origin + theme.backgroundImage : undefined
+}
+
+function renderLangsBlock(sortedLangs: any[], total: number, theme: Theme) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 18, zIndex: 2, width: 1100 }}>
+      {sortedLangs.map(lang => {
+        const percent = total > 0 ? (lang.size / total) * 100 : 0
+        return (
+          <div
+            key={lang.name}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              fontSize: 36,
+              fontWeight: 700,
+              marginBottom: 10,
+              width: 1100,
+              justifyContent: "space-between",
+            }}
+          >
+            <span
+              style={{
+                minWidth: 180,
+                textShadow: "0px 0px 20px rgba(0, 0, 0, 0.35)",
+              }}
+            >
+              {lang.name}
+            </span>
+            <span
+              style={{
+                height: 40,
+                marginLeft: 18,
+                color: theme.color,
+                fontWeight: 900,
+                minWidth: 70,
+              }}
+            >
+              {percent.toFixed(1)}%
+            </span>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+function renderOverlay(bgUrl: string | undefined) {
+  return (
+    bgUrl && (
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.1)",
+          borderRadius: 70,
+          zIndex: 1,
+        }}
+      />
+    )
+  )
+}
+
+function renderFieldsBlock(fieldsToShow: string[], stats: any, theme: Theme, hide_avatar: boolean) {
+  return (
+    <div
+      style={{
+        marginTop: 8,
+        display: "flex",
+        flexDirection: "column",
+        gap: 12,
+        alignItems: "flex-start",
+        color: theme.color,
+      }}
+    >
+      {fieldsToShow.map(
+        field =>
+          typeof stats[field] !== "undefined" && (
+            <div
+              key={field}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                width: hide_avatar ? "1100" : "800",
+                justifyContent: "space-between",
+                color: theme.color,
+                fontSize: "35px",
+                fontWeight: "bolder",
+                textShadow: "0px 0px 20px rgba(0, 0, 0, 0.35)",
+              }}
+            >
+              {FIELD_LABELS[field] || field}: <b>{stats[field]}</b>
+            </div>
+          ),
+      )}
+    </div>
+  )
+}
+
+function renderAvatarBlock(stats: any, theme: Theme) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-end",
+        justifyContent: "center",
+        width: "auto",
+      }}
+    >
+      <img
+        src={stats.avatar_url}
+        width={400}
+        height={400}
+        style={{
+          borderRadius: "50%",
+          marginBottom: 0,
+          border: `0px solid ${theme.accent}`,
+        }}
+      />
+    </div>
+  )
+}
+
+function renderAboutMeBlock(about_me: string) {
+  return (
+    <h1
+      style={{
+        width: "100%",
+        textAlign: "center",
+        margin: 0,
+        marginBottom: 15,
+        zIndex: 2,
+        alignContent: "center",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {about_me}
+    </h1>
+  )
+}
+
+export async function renderToSVG({
+  stats,
+  theme,
+  show = [],
+  origin,
+  about_me,
+  hide_avatar = false,
+  langs = false,
+}: RenderParams): Promise<string> {
   console.log("[satori] stats:", stats)
   console.log("[satori] theme:", theme)
 
@@ -63,14 +222,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
     "rating_name",
   ]
   const defaultFields = ["repoCount", "stars", "followers", "following", "issues"]
-  let fieldsToShow: string[]
-  if (show.length > 0) {
-    fieldsToShow = show.filter(f => allFields.includes(f))
-  } else {
-    fieldsToShow = defaultFields
-  }
-
-  const bgUrl = theme.backgroundImage ? origin + theme.backgroundImage : undefined
+  const fieldsToShow = getFieldsToShow(show, allFields, defaultFields)
+  const bgUrl = getBgUrl(theme, origin)
 
   if (langs && Array.isArray(stats.languages) && stats.languages.length > 0) {
     const sortedLangs = [...stats.languages].sort((a, b) => b.size - a.size).slice(0, 6)
@@ -96,59 +249,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
           position: "relative",
         }}
       >
-        {bgUrl && (
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.1)",
-              borderRadius: 70,
-              zIndex: 1,
-            }}
-          />
-        )}
-        <div style={{ display: "flex", flexDirection: "column", gap: 18, zIndex: 2, width: 1100 }}>
-          {sortedLangs.map(lang => {
-            const percent = total > 0 ? (lang.size / total) * 100 : 0
-            return (
-              <div
-                key={lang.name}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  fontSize: 36,
-                  fontWeight: 700,
-                  marginBottom: 10,
-                  width: 1100,
-                  justifyContent: "space-between",
-                }}
-              >
-                <span
-                  style={{
-                    minWidth: 180,
-                    textShadow: "0px 0px 20px rgba(0, 0, 0, 0.35)",
-                  }}
-                >
-                  {lang.name}
-                </span>
-                <span
-                  style={{
-                    height: 40,
-                    marginLeft: 18,
-                    color: theme.color,
-                    fontWeight: 900,
-                    minWidth: 70,
-                  }}
-                >
-                  {percent.toFixed(1)}%
-                </span>
-              </div>
-            )
-          })}
-        </div>
+        {renderOverlay(bgUrl)}
+        {renderLangsBlock(sortedLangs, total, theme)}
       </div>,
       {
         width: 1500,
@@ -188,21 +290,7 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
           position: "relative",
         }}
       >
-        {/* Overlay для затемнения фона */}
-        {bgUrl && (
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.1)",
-              borderRadius: 70,
-              zIndex: 1,
-            }}
-          />
-        )}
+        {renderOverlay(bgUrl)}
         <div
           style={{
             display: "flex",
@@ -223,77 +311,11 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
               marginRight: hide_avatar ? 0 : 60,
             }}
           >
-            <div
-              style={{
-                marginTop: 8,
-                display: "flex",
-                flexDirection: "column",
-                gap: 12,
-                alignItems: "flex-start",
-                color: theme.color,
-              }}
-            >
-              {fieldsToShow.map(
-                field =>
-                  typeof stats[field] !== "undefined" && (
-                    <div
-                      key={field}
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: hide_avatar ? "1100" : "800",
-                        justifyContent: "space-between",
-                        color: theme.color,
-                        fontSize: "35px",
-                        fontWeight: "bolder",
-                        textShadow: "0px 0px 20px rgba(0, 0, 0, 0.35)",
-                      }}
-                    >
-                      {FIELD_LABELS[field] || field}: <b>{stats[field]}</b>
-                    </div>
-                  ),
-              )}
-            </div>
+            {renderFieldsBlock(fieldsToShow, stats, theme, hide_avatar)}
           </div>
-          {!hide_avatar && (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-end",
-                justifyContent: "center",
-                width: "auto",
-              }}
-            >
-              <img
-                src={stats.avatar_url}
-                width={400}
-                height={400}
-                style={{
-                  borderRadius: "50%",
-                  marginBottom: 0,
-                  border: `0px solid ${theme.accent}`,
-                }}
-              />
-            </div>
-          )}
+          {!hide_avatar && renderAvatarBlock(stats, theme)}
         </div>
-        {about_me && (
-          <h1
-            style={{
-              width: "100%",
-              textAlign: "center",
-              margin: 0,
-              marginBottom: 15,
-              zIndex: 2,
-              alignContent: "center",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {about_me}
-          </h1>
-        )}
+        {about_me && renderAboutMeBlock(about_me)}
       </div>,
       {
         width: 1500,

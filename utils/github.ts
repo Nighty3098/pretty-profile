@@ -49,8 +49,8 @@ interface GraphQLResponse {
 function getAllGithubTokens(): string[] {
   return Object.entries(process.env)
     .filter(([key]) => key.startsWith("GITHUB_TOKEN_PT"))
-    .map(([, value]) => value!)
-    .filter(Boolean)
+    .map(([, value]) => value)
+    .filter(Boolean) as string[]
 }
 
 const METRICS = {
@@ -202,6 +202,54 @@ async function getGithubDataGraphQL(username: string, token: string) {
   return data.data?.user
 }
 
+function aggregateRepoStats(repos: any[]) {
+  let stars = 0
+  let forks = 0
+  let issues = 0
+  const languageStats: Record<string, { name: string; color: string; size: number }> = {}
+
+  for (const repo of repos) {
+    stars += repo.stargazerCount || 0
+    forks += repo.forkCount || 0
+    issues += repo.issues.totalCount || 0
+    if (repo.languages && repo.languages.edges) {
+      for (const lang of repo.languages.edges) {
+        const langName = lang.node.name
+        if (!languageStats[langName]) {
+          languageStats[langName] = {
+            name: langName,
+            color: lang.node.color,
+            size: 0,
+          }
+        }
+        languageStats[langName].size += lang.size || 0
+      }
+    }
+  }
+
+  return { stars, forks, issues, languageStats }
+}
+
+function buildStats(user: any, repoStats: any) {
+  return {
+    avatar_url: user.avatarUrl,
+    name: user.name || user.login,
+    login: user.login,
+    public_repos: user.repositories.totalCount,
+    followers: user.followers.totalCount,
+    following: user.following.totalCount,
+    stars: repoStats.stars,
+    forks: repoStats.forks,
+    repoCount: user.repositories.totalCount,
+    public_gists: user.gists.totalCount,
+    issues: repoStats.issues,
+    commits: user.contributionsCollection.totalCommitContributions,
+    closedPRs: user.pullRequests.totalCount,
+    reviews: user.contributionsCollection.totalPullRequestReviewContributions,
+    languages: Object.values(repoStats.languageStats),
+  }
+}
+
 export async function getGithubStats(username: string) {
   const tokens = getAllGithubTokens()
   let lastError: any = null
@@ -209,53 +257,10 @@ export async function getGithubStats(username: string) {
   for (const token of tokens) {
     try {
       const user = await getGithubDataGraphQL(username, token)
+      if (!user) throw new Error("User not found")
 
-      if (!user) {
-        throw new Error("User not found")
-      }
-
-      let stars = 0
-      let forks = 0
-      let issues = 0
-      const languageStats: Record<string, { name: string; color: string; size: number }> = {}
-
-      user.repositories.nodes.forEach(repo => {
-        stars += repo.stargazerCount || 0
-        forks += repo.forkCount || 0
-        issues += repo.issues.totalCount || 0
-        if (repo.languages && repo.languages.edges) {
-          repo.languages.edges.forEach(lang => {
-            const langName = lang.node.name
-            if (!languageStats[langName]) {
-              languageStats[langName] = {
-                name: langName,
-                color: lang.node.color,
-                size: 0,
-              }
-            }
-            languageStats[langName].size += lang.size || 0
-          })
-        }
-      })
-
-      const stats = {
-        avatar_url: user.avatarUrl,
-        name: user.name || user.login,
-        login: user.login,
-        public_repos: user.repositories.totalCount,
-        followers: user.followers.totalCount,
-        following: user.following.totalCount,
-        stars,
-        forks,
-        repoCount: user.repositories.totalCount,
-        public_gists: user.gists.totalCount,
-        issues,
-        commits: user.contributionsCollection.totalCommitContributions,
-        closedPRs: user.pullRequests.totalCount,
-        reviews: user.contributionsCollection.totalPullRequestReviewContributions,
-        languages: Object.values(languageStats),
-      }
-
+      const repoStats = aggregateRepoStats(user.repositories.nodes)
+      const stats = buildStats(user, repoStats)
       const rating = calculateRating(stats)
 
       return {
