@@ -250,35 +250,42 @@ function buildStats(user: any, repoStats: any) {
   }
 }
 
+function isRateLimitError(e: any): boolean {
+  return e instanceof Error && e.message.includes("API rate limit exceeded")
+}
+
+async function tryGetStatsWithToken(username: string, token: string) {
+  const user = await getGithubDataGraphQL(username, token)
+  if (!user) throw new Error("User not found")
+  const repoStats = aggregateRepoStats(user.repositories.nodes)
+  const stats = buildStats(user, repoStats)
+  const rating = calculateRating(stats)
+
+  return {
+    ...stats,
+    rating: {
+      score: rating.score,
+      percentile: rating.percentile,
+      level: rating.level,
+      name: rating.name,
+    },
+    rating_score: rating.score,
+    rating_percentile: rating.percentile,
+    rating_level: rating.level,
+    rating_name: rating.name,
+  }
+}
+
 export async function getGithubStats(username: string) {
   const tokens = getAllGithubTokens()
   let lastError: any = null
 
   for (const token of tokens) {
     try {
-      const user = await getGithubDataGraphQL(username, token)
-      if (!user) throw new Error("User not found")
-
-      const repoStats = aggregateRepoStats(user.repositories.nodes)
-      const stats = buildStats(user, repoStats)
-      const rating = calculateRating(stats)
-
-      return {
-        ...stats,
-        rating: {
-          score: rating.score,
-          percentile: rating.percentile,
-          level: rating.level,
-          name: rating.name,
-        },
-        rating_score: rating.score,
-        rating_percentile: rating.percentile,
-        rating_level: rating.level,
-        rating_name: rating.name,
-      }
+      return await tryGetStatsWithToken(username, token)
     } catch (e) {
       lastError = e
-      if (e instanceof Error && e.message.includes("API rate limit exceeded")) {
+      if (isRateLimitError(e)) {
         console.warn("[github] Rate limit exceeded for token, trying next...")
         continue
       }
