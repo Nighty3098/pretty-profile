@@ -76,6 +76,8 @@ h1 {
 }
 
 h2 {
+    width: 100%;
+    text-align: left;
   font-size: 1.5rem;
   line-height: 3rem;
   font-family: "Roboto Condensed", sans-serif;
@@ -101,12 +103,16 @@ select {
 
 .item {
   width: 100%;
-  max-width: 700px;
   display: flex;
   flex-direction: row;
   align-items: center;
   align-content: center;
   justify-content: space-between;
+}
+
+.item p{
+    align-items: center;
+    align-content: center;
 }
 
 button {
@@ -195,6 +201,7 @@ p {
 }
 
 .link-paragraph {
+    height: auto;
   background-color: var(--tr);
   padding: 20px;
   border-radius: 13px;

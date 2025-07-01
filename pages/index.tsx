@@ -210,8 +210,11 @@ export default function Home() {
       <h2>Preview</h2>
       {svg && <img src={`data:image/svg+xml;utf8,${encodeURIComponent(svg)}`} alt="Banner preview" style={{ width: "100%", maxWidth: 750, minWidth: 100 }} />}
       <p ref={linkRef} className="link-paragraph">
-        https://pretty-profile.vercel.app/api/github-stats?username={username}&theme={theme}&hide_avatar={hideAvatar ? "true" : "false"}&langs=
-        {langs ? "true" : "false"}&show={showFields.join(",")}
+        {`https://pretty-profile.vercel.app/api/github-stats?username=${username}`}
+        {`&theme=${theme}`}
+        {`&hide_avatar=${hideAvatar ? "true" : "false"}`}
+        {`&langs=${langs ? "true" : "false"}`}
+        {!langs && `&show=${showFields.join(",")}`}
       </p>
       <button type="button" onClick={handleCopy} style={{ marginBottom: 8 }}>
         Copy link
