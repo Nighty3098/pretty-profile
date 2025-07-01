@@ -46,7 +46,7 @@ export const themes: Record<string, Theme> = {
     name: "ancient",
     background: "#3c3836",
     backgroundImage: "/images/ancient.png",
-    color: "#827468",
+    color: "#968778",
     accent: "#427b58",
   },
   solarized: {
