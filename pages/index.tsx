@@ -91,7 +91,8 @@ export default function Home() {
         alignContent: "center",
         justifyContent: "center",
         gap: "20px",
-      }}>
+      }}
+    >
       <h1
         style={{
           height: "100vh",
@@ -102,7 +103,8 @@ export default function Home() {
           justifyContent: "center",
           margin: "0px",
           padding: "0px",
-        }}>
+        }}
+      >
         GENERATE YOUR
         <br />
         PRETTY BANNER
@@ -164,7 +166,8 @@ export default function Home() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-          }}>
+          }}
+        >
           <div
             style={{
               display: "flex",
@@ -179,9 +182,19 @@ export default function Home() {
               alignItems: "center",
               justifyContent: "center",
               flexDirection: "column",
-            }}>
+            }}
+          >
             <h2 style={{ marginTop: 0 }}>Select fields to show</h2>
-            <div className="grid_1" style={{ display: "grid", gap: "8px", width: "auto", marginBottom: 24, gap: 10, columnGap: 30 }}>
+            <div
+              className="grid_1"
+              style={{
+                display: "grid",
+                width: "auto",
+                marginBottom: 24,
+                gap: 10,
+                columnGap: 30,
+              }}
+            >
               {allFields.map(field => (
                 <label
                   key={field}
@@ -195,7 +208,8 @@ export default function Home() {
                     textAlign: "left",
                     gap: "8px",
                     fontSize: 15,
-                  }}>
+                  }}
+                >
                   <input type="checkbox" className="checkbox" checked={showFields.includes(field)} onChange={() => handleFieldChange(field)} />
                   {field}
                 </label>
