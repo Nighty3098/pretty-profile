@@ -49,7 +49,7 @@ function getBgUrl(theme: Theme, origin: string): string | undefined {
 
 function renderLangsBlock(sortedLangs: any[], total: number, theme: Theme) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 18, zIndex: 2, width: 1100 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 12, zIndex: 2, width: 1100 }}>
       {sortedLangs.map(lang => {
         const percent = total > 0 ? (lang.size / total) * 100 : 0
         return (
@@ -60,8 +60,10 @@ function renderLangsBlock(sortedLangs: any[], total: number, theme: Theme) {
               alignItems: "center",
               fontSize: 36,
               fontWeight: 700,
+              lineHeight: 1.2,
               marginBottom: 10,
               width: 1100,
+              height: 40,
               justifyContent: "space-between",
             }}
           >
@@ -69,6 +71,7 @@ function renderLangsBlock(sortedLangs: any[], total: number, theme: Theme) {
               style={{
                 minWidth: 180,
                 textShadow: "0px 0px 20px rgba(0, 0, 0, 0.35)",
+                lineHeight: 1.2,
               }}
             >
               {lang.name}
@@ -80,6 +83,7 @@ function renderLangsBlock(sortedLangs: any[], total: number, theme: Theme) {
                 color: theme.color,
                 fontWeight: 900,
                 minWidth: 70,
+                lineHeight: 1.2,
               }}
             >
               {percent.toFixed(1)}%
@@ -114,7 +118,6 @@ function renderFieldsBlock(fieldsToShow: string[], stats: any, theme: Theme, hid
   return (
     <div
       style={{
-        marginTop: 8,
         display: "flex",
         flexDirection: "column",
         gap: 12,
@@ -133,12 +136,15 @@ function renderFieldsBlock(fieldsToShow: string[], stats: any, theme: Theme, hid
                 width: hide_avatar ? "1100" : "800",
                 justifyContent: "space-between",
                 color: theme.color,
-                fontSize: "35px",
-                fontWeight: "bolder",
+                fontSize: 36,
+                fontWeight: 700,
+                lineHeight: 1.2,
+                height: 40,
+                marginBottom: 10,
                 textShadow: "0px 0px 20px rgba(0, 0, 0, 0.35)",
               }}
             >
-              {FIELD_LABELS[field] || field}: <b>{stats[field]}</b>
+              {FIELD_LABELS[field] || field} <b>{stats[field]}</b>
             </div>
           ),
       )}
