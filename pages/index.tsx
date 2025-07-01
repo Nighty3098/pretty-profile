@@ -184,7 +184,7 @@ export default function Home() {
               flexDirection: "column",
             }}
           >
-            <h2 style={{ marginTop: 0 }}>Select fields to show</h2>
+            <h2 style={{ marginTop: 0, textAlign: "center" }}>Select fields to show</h2>
             <div
               className="grid_1"
               style={{
