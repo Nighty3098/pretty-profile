@@ -94,7 +94,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
           padding: 100,
           boxSizing: "border-box",
           position: "relative",
-        }}>
+        }}
+      >
         {bgUrl && (
           <div
             style={{
@@ -122,13 +123,13 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
                   fontWeight: 700,
                   marginBottom: 10,
                   width: 1100,
-                  justifyContent: "space-between"
+                  justifyContent: "space-between",
                 }}
               >
                 <span
                   style={{
                     minWidth: 180,
-                    textShadow: "0px 0px 20px rgba(0, 0, 0, 0.35)"
+                    textShadow: "0px 0px 20px rgba(0, 0, 0, 0.35)",
                   }}
                 >
                   {lang.name}
@@ -139,7 +140,7 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
                     marginLeft: 18,
                     color: theme.color,
                     fontWeight: 900,
-                    minWidth: 70
+                    minWidth: 70,
                   }}
                 >
                   {percent.toFixed(1)}%
@@ -185,7 +186,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
           padding: 100,
           boxSizing: "border-box",
           position: "relative",
-        }}>
+        }}
+      >
         {/* Overlay для затемнения фона */}
         {bgUrl && (
           <div
@@ -209,7 +211,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
             justifyContent: "center",
             width: "100%",
             zIndex: 2,
-          }}>
+          }}
+        >
           <div
             style={{
               display: "flex",
@@ -218,7 +221,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
               justifyContent: "center",
               gap: 16,
               marginRight: hide_avatar ? 0 : 60,
-            }}>
+            }}
+          >
             <div
               style={{
                 marginTop: 8,
@@ -227,7 +231,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
                 gap: 12,
                 alignItems: "flex-start",
                 color: theme.color,
-              }}>
+              }}
+            >
               {fieldsToShow.map(
                 field =>
                   typeof stats[field] !== "undefined" && (
@@ -242,7 +247,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
                         fontSize: "35px",
                         fontWeight: "bolder",
                         textShadow: "0px 0px 20px rgba(0, 0, 0, 0.35)",
-                      }}>
+                      }}
+                    >
                       {FIELD_LABELS[field] || field}: <b>{stats[field]}</b>
                     </div>
                   ),
@@ -257,7 +263,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
                 alignItems: "flex-end",
                 justifyContent: "center",
                 width: "auto",
-              }}>
+              }}
+            >
               <img
                 src={stats.avatar_url}
                 width={400}
@@ -282,7 +289,8 @@ export async function renderToSVG({ stats, theme, show = [], origin, about_me, h
               alignContent: "center",
               alignItems: "center",
               justifyContent: "center",
-            }}>
+            }}
+          >
             {about_me}
           </h1>
         )}

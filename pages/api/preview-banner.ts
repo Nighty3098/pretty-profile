@@ -17,8 +17,8 @@ const randomStats = {
   languages: [
     { name: "TypeScript", color: "#3178c6", size: 5000 },
     { name: "JavaScript", color: "#f1e05a", size: 3000 },
-    { name: "Python", color: "#3572A5", size: 2000 }
-  ]
+    { name: "Python", color: "#3572A5", size: 2000 },
+  ],
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -45,4 +45,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   res.setHeader("Content-Type", "image/svg+xml")
   res.status(200).send(svg)
-} 
+}
