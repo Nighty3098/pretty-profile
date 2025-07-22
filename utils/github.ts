@@ -212,7 +212,7 @@ function aggregateRepoStats(repos: any[]) {
     stars += repo.stargazerCount || 0
     forks += repo.forkCount || 0
     issues += repo.issues.totalCount || 0
-    if (repo.languages && repo.languages.edges) {
+    if (repo.languages?.edges) {
       for (const lang of repo.languages.edges) {
         const langName = lang.node.name
         if (!languageStats[langName]) {
@@ -257,7 +257,7 @@ function isRateLimitError(e: any): boolean {
 async function tryGetStatsWithToken(username: string, token: string) {
   const user = await getGithubDataGraphQL(username, token)
   if (!user) throw new Error("User not found")
-  const repoStats = aggregateRepoStats(user.repositories.nodes)
+  const repoStats = aggregateRepoStats(user.repositories?.nodes)
   const stats = buildStats(user, repoStats)
   const rating = calculateRating(stats)
 
