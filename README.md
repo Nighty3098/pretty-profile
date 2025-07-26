@@ -55,21 +55,6 @@ https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=sim
 https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=simple&langs=true
 ```
 
-### White:
-
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=white)
-
-```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=white
-```
-
-
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=white&langs=true)
-
-```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=white&langs=true
-```
-
 ### Custom
 
 ![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=custom&fg=%23000000&bg=%23caa7ca)
