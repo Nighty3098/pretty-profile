@@ -26,6 +26,9 @@ https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=ani
 https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=anime&langs=true
 ```
 
+<details>
+<summary>MORE...</summary>
+
 ### Ancient
 
 ![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=ancient)
@@ -62,6 +65,8 @@ https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=sim
 ```
 https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=custom&fg=%23000000&bg=%236a55e8
 ```
+
+</details>
 
 
 ## API Usage
