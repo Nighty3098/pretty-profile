@@ -12,18 +12,18 @@
 
 ## Demo
 
-### Waterfall:
+### Anime:
 
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall)
-
-```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall&hide_avatar=true
-```
-
-![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall&langs=true)
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=anime&hide_avatar=true)
 
 ```
-https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=waterfall&langs=true
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=anime&hide_avatar=true
+```
+
+![](https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=anime&langs=true)
+
+```
+https://pretty-profile.vercel.app/api/github-stats?username=Nighty3098&theme=anime&langs=true
 ```
 
 ### Ancient
@@ -99,6 +99,9 @@ GET /api/github-stats
 - mac_bigsur_dark
 - white
 - simple
+- everforest_sea
+- gradient
+- anime
 
 Each theme has its own background image and color palette. You can also use custom colors via `fg` and `bg` parameters.
 

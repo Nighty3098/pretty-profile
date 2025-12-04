@@ -7,6 +7,27 @@ export type Theme = {
 }
 
 export const themes: Record<string, Theme> = {
+  everforest_sea: {
+    name: "everforest_sea",
+    background: "#D3C6AA",
+    backgroundImage: "/images/everforest_sea.png",
+    color: "#1E2326",
+    accent: "#A7C080",
+  },
+  gradient: {
+    name: "gradient",
+    background: "#ffffff",
+    backgroundImage: "/images/gradient.png",
+    color: "#ffffff",
+    accent: "#ffffff",
+  },
+  anime: {
+    name: "anime",
+    background: "#cf9186",
+    backgroundImage: "/images/anime.png",
+    color: "#cf9186",
+    accent: "#fb4811",
+  },
   city: {
     name: "city",
     background: "#0b1929",

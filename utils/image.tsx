@@ -105,7 +105,7 @@ function renderOverlay(bgUrl: string | undefined) {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: "rgba(0, 0, 0, 0.3)",
+          backgroundColor: "rgba(0, 0, 0, 0.2)",
           borderRadius: 70,
           zIndex: 1,
         }}
@@ -168,7 +168,7 @@ function renderAvatarBlock(stats: any, theme: Theme) {
         width={400}
         height={400}
         style={{
-          borderRadius: "50%",
+          borderRadius: "30%",
           marginBottom: 0,
           border: `0px solid ${theme.accent}`,
         }}
