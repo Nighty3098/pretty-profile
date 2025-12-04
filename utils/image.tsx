@@ -52,6 +52,7 @@ function renderLangsBlock(sortedLangs: any[], total: number, theme: Theme) {
     <div style={{ display: "flex", flexDirection: "column", gap: 12, zIndex: 2, width: 1100 }}>
       {sortedLangs.map(lang => {
         const percent = total > 0 ? (lang.size / total) * 100 : 0
+
         return (
           <div
             key={lang.name}
@@ -65,15 +66,13 @@ function renderLangsBlock(sortedLangs: any[], total: number, theme: Theme) {
               width: 1100,
               height: 40,
               justifyContent: "space-between",
-            }}
-          >
+            }}>
             <span
               style={{
                 minWidth: 180,
                 textShadow: "0px 0px 20px rgba(0, 0, 0, 0.35)",
                 lineHeight: 1.2,
-              }}
-            >
+              }}>
               {lang.name}
             </span>
             <span
@@ -84,8 +83,7 @@ function renderLangsBlock(sortedLangs: any[], total: number, theme: Theme) {
                 fontWeight: 900,
                 minWidth: 70,
                 lineHeight: 1.2,
-              }}
-            >
+              }}>
               {percent.toFixed(1)}%
             </span>
           </div>
@@ -123,8 +121,7 @@ function renderFieldsBlock(fieldsToShow: string[], stats: any, theme: Theme, hid
         gap: 12,
         alignItems: "flex-start",
         color: theme.color,
-      }}
-    >
+      }}>
       {fieldsToShow.map(
         field =>
           typeof stats[field] !== "undefined" && (
@@ -142,8 +139,7 @@ function renderFieldsBlock(fieldsToShow: string[], stats: any, theme: Theme, hid
                 height: 40,
                 marginBottom: 10,
                 textShadow: "0px 0px 20px rgba(0, 0, 0, 0.35)",
-              }}
-            >
+              }}>
               {FIELD_LABELS[field] || field} <b>{stats[field]}</b>
             </div>
           ),
@@ -161,8 +157,7 @@ function renderAvatarBlock(stats: any, theme: Theme) {
         alignItems: "flex-end",
         justifyContent: "center",
         width: "auto",
-      }}
-    >
+      }}>
       <img
         src={stats.avatar_url}
         width={400}
@@ -189,22 +184,13 @@ function renderAboutMeBlock(about_me: string) {
         alignContent: "center",
         alignItems: "center",
         justifyContent: "center",
-      }}
-    >
+      }}>
       {about_me}
     </h1>
   )
 }
 
-export async function renderToSVG({
-  stats,
-  theme,
-  show = [],
-  origin,
-  about_me,
-  hide_avatar = false,
-  langs = false,
-}: RenderParams): Promise<string> {
+export async function renderToSVG({ stats, theme, show = [], origin, about_me, hide_avatar = false, langs = false }: RenderParams): Promise<string> {
   console.log("[satori] stats:", stats)
   console.log("[satori] theme:", theme)
 
@@ -253,8 +239,7 @@ export async function renderToSVG({
           padding: 100,
           boxSizing: "border-box",
           position: "relative",
-        }}
-      >
+        }}>
         {renderOverlay(bgUrl)}
         {renderLangsBlock(sortedLangs, total, theme)}
       </div>,
@@ -294,8 +279,7 @@ export async function renderToSVG({
           padding: 100,
           boxSizing: "border-box",
           position: "relative",
-        }}
-      >
+        }}>
         {renderOverlay(bgUrl)}
         <div
           style={{
@@ -305,8 +289,7 @@ export async function renderToSVG({
             justifyContent: "center",
             width: "100%",
             zIndex: 2,
-          }}
-        >
+          }}>
           <div
             style={{
               display: "flex",
@@ -315,8 +298,7 @@ export async function renderToSVG({
               justifyContent: "center",
               gap: 16,
               marginRight: hide_avatar ? 0 : 60,
-            }}
-          >
+            }}>
             {renderFieldsBlock(fieldsToShow, stats, theme, hide_avatar)}
           </div>
           {!hide_avatar && renderAvatarBlock(stats, theme)}

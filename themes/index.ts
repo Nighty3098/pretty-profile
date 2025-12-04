@@ -122,6 +122,7 @@ export function getTheme(name: string, fg?: string, bg?: string): Theme {
 
   if (!themes[name]) {
     console.log(`[themes] Theme '${name}' not found, using 'city'`)
+
     return themes["city"]
   }
 
