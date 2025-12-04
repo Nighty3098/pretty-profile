@@ -9,6 +9,27 @@ interface GraphQLResponse {
       repositories: {
         totalCount: number
         nodes: Array<{
+          name: string
+          stargazerCount: number
+          forkCount: number
+          issues: {
+            totalCount: number
+          }
+          languages: {
+            edges: Array<{
+              size: number
+              node: {
+                name: string
+                color: string
+              }
+            }>
+          }
+        }>
+      }
+      repositoriesContributedTo: {
+        totalCount: number
+        nodes: Array<{
+          name: string
           stargazerCount: number
           forkCount: number
           issues: {
@@ -64,13 +85,11 @@ const METRICS = {
 
 const calcExponentialCDF = (value: number, median: number): number => {
   if (value <= 0) return 0
-
   return 1 - Math.exp(-value / median)
 }
 
 const calcLogNormalCDF = (value: number, median: number): number => {
   if (value <= 0) return 0
-
   return Math.log(1 + value / median) / Math.log(1 + 1000 / median)
 }
 
@@ -116,9 +135,7 @@ const calculateRating = (stats: any) => {
   console.log("[rating] Raw metrics:", metrics)
 
   const score = calculateTotalScore(metrics)
-
   const percentile = Math.max(0, Math.min(100, 100 - score))
-
   const levelInfo = getLevelByPercentile(percentile)
 
   console.log("[rating] Score:", score, percentile, "Level:", levelInfo.level)
@@ -138,9 +155,34 @@ async function getGithubDataGraphQL(username: string, token: string) {
         avatarUrl
         name
         login
-        repositories(first: 100, isFork: false) {
+        repositories(first: 100, isFork: false, ownerAffiliations: [OWNER]) {
           totalCount
           nodes {
+            name
+            stargazerCount
+            forkCount
+            issues(states: [OPEN, CLOSED]) {
+              totalCount
+            }
+            languages(first: 10) {
+              edges {
+                size
+                node {
+                  name
+                  color
+                }
+              }
+            }
+          }
+        }
+        repositoriesContributedTo(
+          first: 100
+          includeUserRepositories: false
+          contributionTypes: [COMMIT, ISSUE, PULL_REQUEST, REPOSITORY]
+        ) {
+          totalCount
+          nodes {
+            name
             stargazerCount
             forkCount
             issues(states: [OPEN, CLOSED]) {
@@ -202,16 +244,46 @@ async function getGithubDataGraphQL(username: string, token: string) {
   return data.data?.user
 }
 
-function aggregateRepoStats(repos: any[]) {
+function aggregateRepoStats(ownRepos: any[], contributedRepos: any[]) {
   let stars = 0
   let forks = 0
   let issues = 0
   const languageStats: Record<string, { name: string; color: string; size: number }> = {}
+  const processedRepos = new Set<string>()
 
-  for (const repo of repos) {
+  for (const repo of ownRepos) {
+    const repoKey = `${repo.name}`
+    if (processedRepos.has(repoKey)) continue
+    
+    processedRepos.add(repoKey)
     stars += repo.stargazerCount || 0
     forks += repo.forkCount || 0
     issues += repo.issues.totalCount || 0
+    
+    if (repo.languages?.edges) {
+      for (const lang of repo.languages.edges) {
+        const langName = lang.node.name
+        if (!languageStats[langName]) {
+          languageStats[langName] = {
+            name: langName,
+            color: lang.node.color,
+            size: 0,
+          }
+        }
+        languageStats[langName].size += lang.size || 0
+      }
+    }
+  }
+
+  for (const repo of contributedRepos) {
+    const repoKey = `${repo.name}`
+    if (processedRepos.has(repoKey)) continue
+    
+    processedRepos.add(repoKey)
+    stars += repo.stargazerCount || 0
+    forks += repo.forkCount || 0
+    issues += repo.issues.totalCount || 0
+    
     if (repo.languages?.edges) {
       for (const lang of repo.languages.edges) {
         const langName = lang.node.name
@@ -231,16 +303,21 @@ function aggregateRepoStats(repos: any[]) {
 }
 
 function buildStats(user: any, repoStats: any) {
+  const contributedReposCount = user.repositoriesContributedTo?.totalCount || 0
+  const totalRepos = user.repositories.totalCount + contributedReposCount
+
   return {
     avatar_url: user.avatarUrl,
     name: user.name || user.login,
     login: user.login,
     public_repos: user.repositories.totalCount,
+    contributed_repos: contributedReposCount,
+    total_repos: totalRepos,
     followers: user.followers.totalCount,
     following: user.following.totalCount,
     stars: repoStats.stars,
     forks: repoStats.forks,
-    repoCount: user.repositories.totalCount,
+    repoCount: totalRepos,
     public_gists: user.gists.totalCount,
     issues: repoStats.issues,
     commits: user.contributionsCollection.totalCommitContributions,
@@ -257,7 +334,10 @@ function isRateLimitError(e: any): boolean {
 async function tryGetStatsWithToken(username: string, token: string) {
   const user = await getGithubDataGraphQL(username, token)
   if (!user) throw new Error("User not found")
-  const repoStats = aggregateRepoStats(user.repositories?.nodes)
+  
+  const ownRepos = user.repositories?.nodes || []
+  const contributedRepos = user.repositoriesContributedTo?.nodes || []
+  const repoStats = aggregateRepoStats(ownRepos, contributedRepos)
   const stats = buildStats(user, repoStats)
   const rating = calculateRating(stats)
 
