@@ -41,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    console.log("[api] Перед вызовом renderToSVG")
+    console.log("[api] renderToSVG")
     const themeData = getTheme(typeof theme === "string" ? theme : "city", fgColor, bgColor)
     const origin = req.headers.origin || `http://${req.headers.host}`
     const svg = await renderToSVG({
@@ -54,7 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       langs: langsFlag,
     })
     res.setHeader("Content-Type", "image/svg+xml")
-    res.setHeader("Cache-Control", "public, max-age=3600")
+    res.setHeader("Cache-Control", "public, max-age=1800")
     res.setHeader("X-Data-Source", "github")
     res.status(200).send(svg)
   } catch (e) {
