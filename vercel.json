@@ -1,0 +1,13 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "img-src 'self' https://camo.githubusercontent.com https://avatars.githubusercontent.com https://github.com data:; default-src 'self'; script-src 'self' 'unsafe-inline'"
+        }
+      ]
+    }
+  ]
+}
