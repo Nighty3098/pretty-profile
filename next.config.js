@@ -4,6 +4,9 @@ const nextConfig = {
   swcMinify: true,
 
   async headers() {
+    // Apply CSP only in production to avoid blocking dev scripts
+    if (process.env.NODE_ENV !== "production") return []
+
     return [
       {
         source: "/(.*)",

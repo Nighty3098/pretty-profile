@@ -7,6 +7,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Pacifico-Regular";
+  src: url("/fonts/Pacifico-Regular.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 /*
  *  font-family: "Rubik", sans-serif;
  *  font-family: "Wodrk Sans", sans-serif;

@@ -90,10 +90,11 @@ export default function Home() {
           justifyContent: "center",
           margin: "0px",
           padding: "0px",
+          fontFamily: "Pacifico-Regular",
         }}>
-        GENERATE YOUR
+        GENERATE BANNER
         <br />
-        PRETTY BANNER
+        FOR YOUR GIT
       </h1>
       <h2>Settings:</h2>
       <label className="item">
